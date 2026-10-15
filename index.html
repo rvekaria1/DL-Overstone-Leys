@@ -366,6 +366,7 @@
           <label class="checkbox-item"><input type="checkbox" name="support" value="jobs"><span>Over 100 permanent local jobs, plus around 50 during construction</span></label>
           <label class="checkbox-item"><input type="checkbox" name="support" value="careers"><span>Inclusive employment, with skills training and career development</span></label>
           <label class="checkbox-item"><input type="checkbox" name="support" value="health"><span>Helping people stay healthy and easing pressure on local health services</span></label>
+          <label class="checkbox-item"><input type="checkbox" name="support" value="facilities"><span>A state-of-the-art gym, heated pool, racquet courts, studios and spa</span></label>
           <label class="checkbox-item"><input type="checkbox" name="support" value="family"><span>Family-friendly facilities, from swimming and tennis lessons to kids&rsquo; clubs</span></label>
           <label class="checkbox-item"><input type="checkbox" name="support" value="green"><span>Sustainable design, energy-efficient systems and EV charging</span></label>
           <label class="checkbox-item"><input type="checkbox" name="support" value="community"><span>Working with local people and groups as a valued member of the community</span></label>
@@ -486,14 +487,24 @@
       "that it would help people build healthy habits. Good physical and mental wellbeing benefits everyone, not just members.",
       "the contribution to public health. Prevention is far better than cure, and facilities like this help people stay well.",
       "that a club like this would support both physical and mental health. With health services under strain, that matters.",
-      "the role it would play in keeping people healthy. Helping residents stay active reduces the demand on GPs and hospitals."
+      "the role it would play in keeping people healthy. Helping residents stay active reduces the demand on GPs and hospitals.",
+      "the state-of-the-art gym and bespoke group exercise studios. Facilities like these make it easier for people of every fitness level to stay active."
+    ],
+    facilities: [
+      "the quality of the facilities. A state-of-the-art gym, a heated indoor and outdoor swimming pool and top-class racquet facilities would give the area something it does not have today.",
+      "that it would bring a full range of facilities under one roof. A gym, swimming pool, racquet courts, group exercise studios and a spa would mean people no longer have to travel further afield.",
+      "the heated indoor and outdoor swimming pool. Year-round swimming close to home would be used by people of all ages.",
+      "the luxurious spa and spa garden. Somewhere to relax and unwind is just as important to wellbeing as somewhere to exercise.",
+      "the top-class racquet facilities and bespoke group exercise studios. They would give local people more ways to stay active and try something new."
     ],
     family: [
       "the family-friendly facilities. Somewhere families can spend time together, with activities for children running alongside adult classes, is a genuine plus.",
       "that there would be something for all ages. Swimming and tennis lessons, kids' clubs and adult classes under one roof would make a real difference.",
       "the activities for children. From swimming lessons to arts and crafts, it would give local families far more on their doorstep.",
       "that parents could use the facilities while their children take part in their own activities. That makes it much easier for families to stay active.",
-      "the range of facilities for families. Overstone Leys is a growing community and this is exactly the kind of amenity it needs."
+      "the range of facilities for families. Overstone Leys is a growing community and this is exactly the kind of amenity it needs.",
+      "the dedicated David Lloyd Kids activities programme. With an indoor and outdoor play area too, it would give younger children somewhere safe and fun to be active.",
+      "that even the youngest members would be catered for, with a dedicated kids' programme and indoor and outdoor play areas. That is a real draw for young families."
     ],
     green: [
       "the environmental commitments. Sustainable materials, energy-efficient systems and EV charging are the standard new development should be held to.",
@@ -507,7 +518,9 @@
       "that the club intends to listen to what local people want. That kind of engagement makes a real difference.",
       "the way the club wants to involve the local community. Helping people get the most out of a high-quality facility benefits everyone.",
       "that it would become a valued part of the local area. Overstone Leys and the surrounding villages would gain a real community asset.",
-      "the focus on working with local groups. It shows a long-term commitment to the area rather than just a new building."
+      "the focus on working with local groups. It shows a long-term commitment to the area rather than just a new building.",
+      "the stylish clubroom and modern spaces to work, relax and socialise. It would give people a new place to meet friends and neighbours locally.",
+      "that members could meet friends for a bite to eat in the clubroom. A welcoming social space like that helps bring a community together."
     ],
     signoffs: [
       "Kind regards,",
@@ -539,12 +552,19 @@
     health: [
       "Helping people stay fit and healthy would ease pressure on local health services.",
       "Facilities like this support both physical and mental wellbeing.",
-      "Keeping people active is one of the best ways to reduce demand on GPs and hospitals."
+      "Keeping people active is one of the best ways to reduce demand on GPs and hospitals.",
+      "A state-of-the-art gym and purpose-designed exercise studios would make it easier for everyone to stay active."
+    ],
+    facilities: [
+      "A state-of-the-art gym, heated indoor and outdoor pool and top-class racquet facilities would give the area facilities it currently lacks.",
+      "Having a gym, pool, racquet courts, exercise studios and a spa under one roof would save people travelling further afield.",
+      "The spa and spa garden would offer somewhere to relax and unwind, which matters as much as keeping fit."
     ],
     family: [
       "Family-friendly facilities, from swimming lessons to kids' clubs, would fill a genuine gap locally.",
       "Somewhere families can spend time together, with activities for all ages, is badly needed.",
-      "Having activities for children alongside adult classes would make it easy for families to stay active."
+      "Having activities for children alongside adult classes would make it easy for families to stay active.",
+      "The dedicated kids' activities programme and indoor and outdoor play areas would be a real draw for young families."
     ],
     green: [
       "Sustainable materials, energy-efficient systems and EV charging are the right standard to build to.",
@@ -554,12 +574,13 @@
     community: [
       "The commitment to work with local people and groups is welcome.",
       "The club would become a valued part of the local community.",
-      "It is good to see a commitment to helping local people get the most out of the facility."
+      "It is good to see a commitment to helping local people get the most out of the facility.",
+      "A stylish clubroom and modern spaces to work, relax and socialise would give people somewhere new to meet locally."
     ]
   };
 
   // Order in which selected reasons appear in the letter
-  var REASON_ORDER = ["jobs","careers","health","family","green","community"];
+  var REASON_ORDER = ["jobs","careers","health","facilities","family","green","community"];
 
   // Most variants are fragments that follow a transition word ("I particularly
   // welcome ..."). A few are written as complete standalone sentences; list them
