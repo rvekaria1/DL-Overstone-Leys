@@ -569,7 +569,7 @@
 
   // Build a stable-per-render set of random indices so the preview doesn't reshuffle on every keystroke.
   var renderSeed = {};
-  function reseed() {
+  function randomSeed() {
     renderSeed = {
       opening: Math.floor(Math.random() * variations.openings.length),
       signoff: Math.floor(Math.random() * variations.signoffs.length)
@@ -579,6 +579,79 @@
       // Mod'd against the chosen transition list at use time, since the two lists differ in length.
       renderSeed[key + "_t"] = Math.floor(Math.random() * 1000);
     });
+  }
+
+  // ---- Repetition check ----------------------------------------------------
+  // Random picks can produce a letter that reads as copy-and-paste: two
+  // paragraphs opening "It is good to see", or the same phrase turning up in
+  // two sentences. hasRepeatedPhrase spots that so reseed can pick again.
+  // Longest first, so "I am pleased to see" wins over any shorter match.
+  var LEAD_INS = variations.transitionsNoun.concat(variations.transitionsThat)
+    .filter(function (t, i, all) { return all.indexOf(t) === i; })
+    .sort(function (a, b) { return b.length - a.length; });
+  // Three-word phrases made only of these words are ignored. "there" is
+  // deliberately not here, so a repeated "there would be" is still caught.
+  var COMMON_WORDS = ("the a an and to of in for it is be would this that as with on at i so " +
+    "not just am are was their them they we our my me you your has have can could will").split(" ");
+
+  function leadIn(paragraph) {
+    for (var i = 0; i < LEAD_INS.length; i++) {
+      if (paragraph.indexOf(LEAD_INS[i] + " ") === 0) return LEAD_INS[i];
+    }
+    return null;
+  }
+
+  function phrasesOf(sentence) {
+    var words = sentence.toLowerCase().replace(/’/g, "'").match(/[a-z0-9']+/g) || [];
+    var found = {};
+    for (var i = 0; i + 2 < words.length; i++) {
+      var tri = words.slice(i, i + 3);
+      var allCommon = tri.every(function (w) { return COMMON_WORDS.indexOf(w) !== -1; });
+      if (!allCommon) found[tri.join(" ")] = true;
+    }
+    return found;
+  }
+
+  // Checks a letter built with no comments, as generateLetter lays it out:
+  // greeting, intro paragraph, reason paragraphs, sign-off block. The greeting,
+  // the first sentence (naming the application and site) and the sign-off are
+  // not checked. No lookbehind regex: older iPhones fail to parse the page.
+  function hasRepeatedPhrase(letter) {
+    var paras = letter.split("\n\n");
+    var reasons = paras.slice(2, -1);
+
+    var leads = {};
+    for (var i = 0; i < reasons.length; i++) {
+      var lead = leadIn(reasons[i]);
+      if (lead) {
+        if (leads[lead]) return true;
+        leads[lead] = true;
+      }
+    }
+
+    var sentences = paras[1].split(/[.!?]\s+/).slice(1);
+    reasons.forEach(function (p) { sentences = sentences.concat(p.split(/[.!?]\s+/)); });
+    var seenIn = {};
+    for (var s = 0; s < sentences.length; s++) {
+      var phrases = phrasesOf(sentences[s]);
+      for (var phrase in phrases) {
+        if (seenIn.hasOwnProperty(phrase) && seenIn[phrase] !== s) return true;
+        seenIn[phrase] = s;
+      }
+    }
+    return false;
+  }
+
+  // Pick wording for the ticked reasons, re-rolling until no lead-in or phrase
+  // repeats. Called on load, on a checkbox change and on Start over, never
+  // while typing, so the letter doesn't reshuffle under someone's fingers.
+  function reseed() {
+    var selected = getSelected();
+    for (var attempt = 0; attempt < 60; attempt++) {
+      randomSeed();
+      if (!hasRepeatedPhrase(generateLetter("x", "", selected, ""))) return;
+    }
+    // Nothing passed: keep the last attempt rather than show no letter.
   }
   reseed();
 
